@@ -3,7 +3,7 @@ services:
   app:
     build: .
     container_name: echo_sample_app
-    command: go run main.go
+    command: realize start
     volumes: 
       - ./:/go/src/app
     ports: 

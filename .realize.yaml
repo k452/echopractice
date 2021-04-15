@@ -1,0 +1,28 @@
+settings:
+  legacy:
+    force: false
+    interval: 0s
+schema:
+- name: app
+  path: .
+  commands:
+    install:
+      status: true
+      method: go build -o main
+    run:
+      status: true
+      method: ./main
+    start:
+      status: true
+      method: go run main.go
+  watcher:
+    extensions:
+    - go
+    paths:
+    - /
+    ignored_paths:
+    - .git
+    - .realize
+    - vendor
+    - mysql_data
+    - sqls

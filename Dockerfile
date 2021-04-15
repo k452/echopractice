@@ -15,5 +15,6 @@ ADD . /go/src/app
 
 # golangの必要ライブラリをインストール
 RUN go get -u github.com/labstack/echo/...
+RUN GO111MODULE=off go get -u github.com/oxequa/realize
 
 EXPOSE 8080
