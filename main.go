@@ -1,14 +1,22 @@
 package main
 
 import (
-    "net/http"
-    "github.com/labstack/echo"
+	"fmt"
+	"github.com/labstack/echo"
+	"net/http"
+	"sample/model"
 )
 
 func main() {
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
-			return c.String(http.StatusOK, "Hello, Echo World!!")
+		x := model.SelectData()
+		fmt.Println(x)
+		return c.String(http.StatusOK, "Select")
+	})
+	e.GET("/i", func(c echo.Context) error {
+		model.InsertData()
+		return c.String(http.StatusOK, "Insert")
 	})
 	e.Logger.Fatal(e.Start(":8080"))
 }

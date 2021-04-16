@@ -1,3 +1,7 @@
 mysql_data/
 sqls/
 go.sum
+main
+
+# 環境変数
+*.env
