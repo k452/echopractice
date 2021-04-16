@@ -10,10 +10,10 @@ schema:
   commands:
     install:
       status: true
-      method: go build -o main
+      method: go build -o ./binary/main
     run:
       status: true
-      method: ./main
+      method: ./binary/main
     start:
       status: true
       method: go run main.go
