@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sirupsen/logrus"
-	"sample/conf"
+	"sake_io_api/conf"
 )
 
 func Connect() *sql.DB {

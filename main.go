@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
-	"sample/model"
+	"sake_io_api/model"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package model
 import (
 	"github.com/sirupsen/logrus"
 	"math/rand"
-	"sample/db"
+	"sake_io_api/db"
 	"time"
 )
 

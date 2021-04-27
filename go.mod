@@ -1,4 +1,4 @@
-module sample
+module sake_io_api
 
 go 1.13.6
 
