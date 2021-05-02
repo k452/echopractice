@@ -2,31 +2,25 @@ package model
 
 import (
 	"github.com/sirupsen/logrus"
-	"math/rand"
 	"sake_io_api/db"
 	"time"
 )
 
-func InsertData() {
-	rand.Seed(time.Now().UnixNano())
-
+func RegisterUserData() {
 	db := db.Connect()
 	defer db.Close()
 
-	_, err := db.Exec("CREATE TABLE IF NOT EXISTS users (name VARCHAR(100), age INT(5));")
+	InitTable("users")
+
+	ins, err := db.Prepare("INSERT INTO users(name, mail, lank, pass, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?);")
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	ins, err2 := db.Prepare("INSERT INTO users(name, age) VALUES(?, ?);")
-	if err2 != nil {
-		logrus.Error(err2)
-	}
-
-	ins.Exec("Karasawa", rand.Intn(100))
+	ins.Exec("Karasawa", "karasawauec@gmail.com", 1, "password", time.Now(), time.Now())
 }
 
-func SelectData() []User {
+func SelectAllUserData() []User {
 	db := db.Connect()
 	defer db.Close()
 
@@ -38,15 +32,10 @@ func SelectData() []User {
 	var users []User
 	for rows.Next() {
 		user := User{}
-		if err := rows.Scan(&user.Name, &user.Age); err != nil {
+		if err := rows.Scan(&user.User_id, &user.Name, &user.Mail, &user.Lank, &user.Pass, &user.Created_at, &user.Updated_at); err != nil {
 			logrus.Error(err)
 		}
 		users = append(users, user)
 	}
 	return users
-}
-
-type User struct {
-	Name string
-	Age  string
 }
