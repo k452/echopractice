@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 	"sake_io_api/model"
@@ -10,12 +9,15 @@ import (
 func main() {
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
-		x := model.SelectData()
-		fmt.Println(x)
-		return c.String(http.StatusOK, "Select")
+		x := model.SelectAllUserData()
+		return c.JSON(http.StatusOK, x)
+	})
+	e.GET("/r", func(c echo.Context) error {
+		model.RegisterUserData()
+		return c.String(http.StatusOK, "Insert")
 	})
 	e.GET("/i", func(c echo.Context) error {
-		model.InsertData()
+		model.InitTable("management")
 		return c.String(http.StatusOK, "Insert")
 	})
 	e.Logger.Fatal(e.Start(":8080"))
