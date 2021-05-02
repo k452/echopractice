@@ -15,12 +15,12 @@ func InitTable(tableName string) {
 			logrus.Error(err)
 		}
 	} else if tableName == "recipe" {
-		_, err := db.Exec("CREATE TABLE IF NOT EXISTS recipe (id VARCHAR(1000), title VARCHAR(100), text VARCHAR(100000), sumbnail VARCHAR(100000), recipe_id VARCHAR(1000), created_at DATETIME, updateed_at DATETIME);")
+		_, err := db.Exec("CREATE TABLE IF NOT EXISTS recipe (recipe_id INT NOT NULL AUTO_INCREMENT, title VARCHAR(100), text VARCHAR(5000), sumbnail VARCHAR(10000), user_id INT, created_at DATETIME, updateed_at DATETIME, primary key(recipe_id));")
 		if err != nil {
 			logrus.Error(err)
 		}
 	} else if tableName == "management" {
-		_, err := db.Exec("CREATE TABLE IF NOT EXISTS management (user_id VARCHAR(1000), sake_name VARCHAR(100), date DATE);")
+		_, err := db.Exec("CREATE TABLE IF NOT EXISTS management (user_id INT, sake_name VARCHAR(500), amount INT, date DATE, primary key(user_id));")
 		if err != nil {
 			logrus.Error(err)
 		}

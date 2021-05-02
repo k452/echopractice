@@ -12,8 +12,12 @@ func main() {
 		x := model.SelectAllUserData()
 		return c.JSON(http.StatusOK, x)
 	})
-	e.GET("/i", func(c echo.Context) error {
+	e.GET("/r", func(c echo.Context) error {
 		model.RegisterUserData()
+		return c.String(http.StatusOK, "Insert")
+	})
+	e.GET("/i", func(c echo.Context) error {
+		model.InitTable("management")
 		return c.String(http.StatusOK, "Insert")
 	})
 	e.Logger.Fatal(e.Start(":8080"))
