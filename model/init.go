@@ -20,7 +20,7 @@ func InitTable(tableName string) {
 			logrus.Error(err)
 		}
 	} else if tableName == "management" {
-		_, err := db.Exec("CREATE TABLE IF NOT EXISTS management (user_id INT, sake_name VARCHAR(500), amount INT, date DATE, primary key(user_id));")
+		_, err := db.Exec("CREATE TABLE IF NOT EXISTS management (management_id INT NOT NULL AUTO_INCREMENT, user_id INT, sake_name VARCHAR(500), amount INT, date DATE, created_at DATETIME, updateed_at DATETIME, primary key(management_id));")
 		if err != nil {
 			logrus.Error(err)
 		}
