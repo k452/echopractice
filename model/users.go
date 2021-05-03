@@ -1,26 +1,45 @@
 package model
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"sake_io_api/db"
 	"time"
 )
 
-func RegisterUserData() {
+func SelectUserData(user_id string) []SelectUserType {
 	db := db.Connect()
 	defer db.Close()
 
-	InitTable("users")
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM %s WHERE user_id=%s;", "users", user_id))
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	var users []SelectUserType
+	for rows.Next() {
+		user := SelectUserType{}
+		if err := rows.Scan(&user.User_id, &user.Name, &user.Mail, &user.Lank, &user.Pass, &user.Created_at, &user.Updated_at); err != nil {
+			logrus.Error(err)
+		}
+		users = append(users, user)
+	}
+	return users
+}
+
+func RegisterUser(d *RegisterUserType) {
+	db := db.Connect()
+	defer db.Close()
 
 	ins, err := db.Prepare("INSERT INTO users(name, mail, lank, pass, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?);")
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	ins.Exec("Karasawa", "karasawauec@gmail.com", 1, "password", time.Now(), time.Now())
+	ins.Exec(d.Name, d.Mail, 1, d.Pass, time.Now(), time.Now())
 }
 
-func SelectAllUserData() []User {
+func SelectAllUserData() []SelectUserType {
 	db := db.Connect()
 	defer db.Close()
 
@@ -29,9 +48,9 @@ func SelectAllUserData() []User {
 		logrus.Error(err)
 	}
 
-	var users []User
+	var users []SelectUserType
 	for rows.Next() {
-		user := User{}
+		user := SelectUserType{}
 		if err := rows.Scan(&user.User_id, &user.Name, &user.Mail, &user.Lank, &user.Pass, &user.Created_at, &user.Updated_at); err != nil {
 			logrus.Error(err)
 		}
