@@ -4,6 +4,10 @@ FROM golang:1.13.6-alpine
 # update
 RUN apk add --update && apk add git
 
+# TimeZoneをJSTに変更
+ENV TZ=Asia/Tokyo
+RUN apk --no-cache add tzdata
+
 # goの作業ディレクトリ作成
 RUN mkdir /go/src/app
 

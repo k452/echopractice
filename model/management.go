@@ -72,7 +72,7 @@ func UpdateManagement(d *UpdateManagementType) {
 	db := db.Connect()
 	defer db.Close()
 
-	stmt, err := db.Prepare("UPDATE management SET amount=?, updated_at=? WHERE management_id=?;")
+	stmt, err := db.Prepare("UPDATE management SET amount=?, updated_at=? WHERE id=?;")
 	if err != nil {
 		logrus.Error(err)
 	}
@@ -88,7 +88,7 @@ func DeleteManagement(management_id int) {
 	db := db.Connect()
 	defer db.Close()
 
-	stmt, err := db.Prepare("DELETE FROM management WHERE management_id=?")
+	stmt, err := db.Prepare("DELETE FROM management WHERE id=?")
 	if err != nil {
 		logrus.Error(err)
 	}
