@@ -7,4 +7,5 @@ import (
 func Routing(e *echo.Echo) {
 	userRouting(e)
 	managementRouting(e)
+	recipeRouting(e)
 }

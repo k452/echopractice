@@ -11,11 +11,11 @@ import (
 func userRouting(e *echo.Echo) {
 	g := e.Group("/user")
 	g.GET("", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, model.SelectAllUserData())
+		return c.JSON(http.StatusOK, model.SelectAllUser())
 	})
 	g.GET("/:id", func(c echo.Context) error {
 		user_id, _ := strconv.Atoi(c.Param("id"))
-		return c.JSON(http.StatusOK, model.SelectUserData(user_id))
+		return c.JSON(http.StatusOK, model.SelectUser(user_id))
 	})
 	g.POST("", func(c echo.Context) error {
 		var formData model.RegisterUserType

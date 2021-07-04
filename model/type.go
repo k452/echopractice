@@ -50,3 +50,27 @@ type UpdateManagementType struct {
 	Management_id int `json:"management_id"`
 	Amount        int `json:"amount"`
 }
+
+type SelectRecipeType struct {
+	Recipe_id  int       `json:"recipe_id"`
+	User_id    int       `json:"user_id"`
+	Title      string    `json:"title"`
+	Text       string    `json:"text"`
+	Sumbnail   string    `json:"sumbnail"`
+	Created_at time.Time `json:"created_at"`
+	Updated_at time.Time `json:"updated_at"`
+}
+
+type RegisterRecipeType struct {
+	User_id  int    `json:"user_id"`
+	Title    string `json:"title"`
+	Text     string `json:"text"`
+	Sumbnail string `json:"sumbnail"`
+}
+
+type UpdateRecipeType struct {
+	Recipe_id int    `json:"recipe_id"`
+	Title     string `json:"title"`
+	Text      string `json:"text"`
+	Sumbnail  string `json:"sumbnail"`
+}

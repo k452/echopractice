@@ -21,7 +21,7 @@ func RegisterUser(d *RegisterUserType) {
 	}
 }
 
-func SelectUserData(user_id int) []SelectUserType {
+func SelectUser(user_id int) []SelectUserType {
 	db := db.Connect()
 	defer db.Close()
 
@@ -46,7 +46,7 @@ func SelectUserData(user_id int) []SelectUserType {
 	return users
 }
 
-func SelectAllUserData() []SelectUserType {
+func SelectAllUser() []SelectUserType {
 	db := db.Connect()
 	defer db.Close()
 
