@@ -34,13 +34,13 @@
 │   ├── management.go  
 │   ├── recipe.go  
 │   ├── type.go  
-│   └── users.go  
+│   └── user.go  
 ├── mysql_data  
 │   └── 省略  
 ├── routing --- ルーティング  
 │   ├── main.go  
 │   ├── management.go  
 │   ├── recipe.go  
-│   └── users.go  
+│   └── user.go  
 └── sqls  
    └── 省略

@@ -15,9 +15,18 @@ type SelectUserType struct {
 }
 
 type RegisterUserType struct {
-	Name string `json:"name"`
-	Mail string `json:"mail"`
-	Pass string `json:"pass"`
+	Name  string `json:"name"`
+	Mail  string `json:"mail"`
+	Level int    `json:"level"`
+	Pass  string `json:"pass"`
+}
+
+type UpdateUserType struct {
+	User_id int    `json:"user_id"`
+	Name    string `json:"name"`
+	Mail    string `json:"mail"`
+	Level   int    `json:"level"`
+	Pass    string `json:"pass"`
 }
 
 type SelectManagementType struct {

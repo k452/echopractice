@@ -10,9 +10,12 @@ import (
 
 func managementRouting(e *echo.Echo) {
 	g := e.Group("/management")
+	g.GET("", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, model.SelectAllManagement())
+	})
 	g.GET("/:id", func(c echo.Context) error {
 		user_id, _ := strconv.Atoi(c.Param("id"))
-		return c.JSON(http.StatusOK, model.SelectManagementData(user_id))
+		return c.JSON(http.StatusOK, model.SelectManagement(user_id))
 	})
 	g.POST("/:id", func(c echo.Context) error {
 		var formData model.RegisterManagementType
