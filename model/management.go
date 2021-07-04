@@ -22,7 +22,7 @@ func RegisterManagement(d *RegisterManagementType) {
 	}
 }
 
-func SelectManagementData(user_id int) []SelectManagementType {
+func SelectManagement(user_id int) []SelectManagementType {
 	db := db.Connect()
 	defer db.Close()
 
@@ -48,7 +48,7 @@ func SelectManagementData(user_id int) []SelectManagementType {
 	return managements
 }
 
-func SelectAllManagement(user_id int) []SelectManagementType {
+func SelectAllManagement() []SelectManagementType {
 	db := db.Connect()
 	defer db.Close()
 
