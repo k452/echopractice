@@ -11,8 +11,8 @@ func InitTable(tableName string) {
 	db := db.Connect()
 	defer db.Close()
 
-	if tableName == "users" {
-		_, err := db.Exec("CREATE TABLE IF NOT EXISTS users (user_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(100), mail VARCHAR(100), lank INT(10), pass VARCHAR(1000), created_at DATETIME, updated_at DATETIME, primary key(user_id));")
+	if tableName == "user" {
+		_, err := db.Exec("CREATE TABLE IF NOT EXISTS user (user_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(100), mail VARCHAR(100), lank INT(10), pass VARCHAR(1000), created_at DATETIME, updated_at DATETIME, primary key(user_id));")
 		if err != nil {
 			logrus.Error(err)
 		}
@@ -33,7 +33,7 @@ func DeleteTable(tableName string) {
 	db := db.Connect()
 	defer db.Close()
 
-	if tableName == "users" || tableName == "recipe" || tableName == "management" {
+	if tableName == "user" || tableName == "recipe" || tableName == "management" {
 		_, err := db.Exec(fmt.Sprintf("DROP TABLE %s;", tableName))
 		if err != nil {
 			logrus.Error(err)

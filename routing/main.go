@@ -5,6 +5,6 @@ import (
 )
 
 func Routing(e *echo.Echo) {
-	usersRouting(e)
+	userRouting(e)
 	managementRouting(e)
 }

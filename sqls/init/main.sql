@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE user (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100),
   mail VARCHAR(100),
@@ -8,6 +8,7 @@ CREATE TABLE users (
   updated_at DATETIME,
   primary key(id)
 );
+
 CREATE TABLE management (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT,
@@ -17,8 +18,9 @@ CREATE TABLE management (
   created_at DATETIME,
   updated_at DATETIME,
   primary key(id),
-  FOREIGN KEY key_user_id(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT
+  FOREIGN KEY key_user_id(user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
+
 CREATE TABLE recipe (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT,
@@ -28,8 +30,11 @@ CREATE TABLE recipe (
   created_at DATETIME,
   updated_at DATETIME,
   primary key(id),
-  FOREIGN KEY key_user_id(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT
+  FOREIGN KEY key_user_id(user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
-LOAD DATA INFILE "/docker-entrypoint-initdb.d/users.csv" INTO TABLE users FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`name`, `mail`, `level`, `pass`, `created_at`, `updated_at`);
+
+LOAD DATA INFILE "/docker-entrypoint-initdb.d/user.csv" INTO TABLE user FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`name`, `mail`, `level`, `pass`, `created_at`, `updated_at`);
+
 LOAD DATA INFILE "/docker-entrypoint-initdb.d/management.csv" INTO TABLE management FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `sake_name`, `amount`, `date`, `created_at`, `updated_at`);
+
 LOAD DATA INFILE "/docker-entrypoint-initdb.d/recipe.csv" INTO TABLE recipe FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `title`, `text`, `sumbnail`, `created_at`, `updated_at`);

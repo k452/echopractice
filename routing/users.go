@@ -8,10 +8,14 @@ import (
 	"strconv"
 )
 
-func usersRouting(e *echo.Echo) {
-	g := e.Group("/users")
+func userRouting(e *echo.Echo) {
+	g := e.Group("/user")
 	g.GET("", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, model.SelectAllUserData())
+	})
+	g.GET("/:id", func(c echo.Context) error {
+		user_id, _ := strconv.Atoi(c.Param("id"))
+		return c.JSON(http.StatusOK, model.SelectUserData(user_id))
 	})
 	g.POST("", func(c echo.Context) error {
 		var formData model.RegisterUserType
@@ -19,10 +23,21 @@ func usersRouting(e *echo.Echo) {
 			logrus.Error(err)
 		}
 		model.RegisterUser(&formData)
-		return c.String(http.StatusOK, "Success")
+		return c.String(http.StatusOK, "success create user")
 	})
-	g.GET("/:id", func(c echo.Context) error {
+	g.PATCH("/:id", func(c echo.Context) error {
+		var formData model.UpdateUserType
+		formData.User_id, _ = strconv.Atoi(c.Param("id"))
+		formData.Name = c.FormValue("name")
+		formData.Mail = c.FormValue("mail")
+		formData.Level, _ = strconv.Atoi(c.FormValue("level"))
+		formData.Pass = c.FormValue("pass")
+		model.UpdateUser(&formData)
+		return c.String(http.StatusOK, "success update user")
+	})
+	g.DELETE("/:id", func(c echo.Context) error {
 		user_id, _ := strconv.Atoi(c.Param("id"))
-		return c.JSON(http.StatusOK, model.SelectUserData(user_id))
+		model.DeleteUser(user_id)
+		return c.String(http.StatusOK, "success delete user")
 	})
 }
