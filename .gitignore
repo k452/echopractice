@@ -2,7 +2,6 @@
 binary/*
 
 mysql_data/
-sqls/
 go.sum
 ./main
 

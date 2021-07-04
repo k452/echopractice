@@ -5,6 +5,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"sake_io_api/model"
+	"strconv"
 )
 
 func usersRouting(e *echo.Echo) {
@@ -20,7 +21,8 @@ func usersRouting(e *echo.Echo) {
 		model.RegisterUser(&formData)
 		return c.String(http.StatusOK, "Success")
 	})
-	g.GET("/:user_id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, model.SelectUserData(c.Param("user_id")))
+	g.GET("/:id", func(c echo.Context) error {
+		user_id, _ := strconv.Atoi(c.Param("id"))
+		return c.JSON(http.StatusOK, model.SelectUserData(user_id))
 	})
 }
