@@ -22,6 +22,7 @@ RUN go get github.com/labstack/echo/... && \
     go get github.com/go-sql-driver/mysql && \
     go get github.com/sirupsen/logrus && \
     go get github.com/joho/godotenv && \
+    go get github.com/DATA-DOG/go-sqlmock && \
     GO111MODULE=off go get github.com/oxequa/realize
 
 EXPOSE 8080
