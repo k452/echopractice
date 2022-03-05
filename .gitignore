@@ -1,5 +1,5 @@
 # バイナリ
-binary/*
+bin/*
 
 mysql_data/
 go.sum
