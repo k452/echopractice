@@ -3,8 +3,8 @@
 ## 使用技術
 
 - Go
-  - Echo
-  - realize
+  - echo
+  - air
   - logrus
   - godotenv
 - MySQL
@@ -14,33 +14,8 @@
 - Docker
 - Docker-Compose
 
-## ディレクトリ構成
-
-├── README.md  
-├── conf --- 環境変数の読み込み  
-│   └── dbConfig.go  
-├── db --- db 接続  
-│   └── connect.go  
-├── docker-compose.yml  
-├── Dockerfile  
-├── envFile --- 環境変数ファイル  
-│   ├── production.env  
-│   └── test.env  
-├── go.mod  
-├── go.sum  
-├── main.go --- API サーバー起動  
-├── model  
-│   ├── init.go --- テーブル作成等の初期化処理  
-│   ├── management.go  
-│   ├── recipe.go  
-│   ├── type.go  
-│   └── user.go  
-├── mysql_data  
-│   └── 省略  
-├── routing --- ルーティング  
-│   ├── main.go  
-│   ├── management.go  
-│   ├── recipe.go  
-│   └── user.go  
-└── sqls  
-   └── 省略
+## アーキテクチャ
+  - レイヤードアーキテクチャ的な構成にしている
+  - 参考
+    - https://yyh-gl.github.io/tech-blog/blog/go_web_api/
+    - https://github.com/nanamen/go-onion-architecture-sample

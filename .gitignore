@@ -1,9 +1,8 @@
-# バイナリ
-bin/*
-
+bin
+tmp
 mysql_data/
 go.sum
-./main
 
 # 環境変数
+envFiles
 *.env

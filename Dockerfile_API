@@ -21,7 +21,6 @@ RUN apk add --update && apk add git tzdata shadow && \
     chown go:go /home
 
 USER ${UNAME}:${GNAME}
-EXPOSE 8080
 
 # usermod -o -u ${UID} ${UNAME} && \
 # groupmod -g ${GID} ${GNAME} && \
