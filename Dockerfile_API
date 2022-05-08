@@ -9,7 +9,7 @@ ARG GID
 
 WORKDIR /go/src/sake_io_api
 
-RUN apk add --update && apk add git tzdata shadow && \
+RUN apk add --update && apk add --no-cache alpine-sdk build-base git tzdata shadow && \
     addgroup -g ${GID} ${GNAME} && \
     adduser -D -H -u ${UID} -G ${GNAME} ${UNAME} && \
     go install github.com/cosmtrek/air@latest && \

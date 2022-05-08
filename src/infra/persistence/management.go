@@ -8,14 +8,28 @@ import (
 	"time"
 )
 
-type managementPersistence struct{}
-
-func NewManagementPersistence() repository.ManagementRepository {
-	return &managementPersistence{}
+type managementPersistence struct {
+	isProd bool
 }
 
-func (up managementPersistence) GetManagementAll() []model.Management {
-	db := RDB.MySQLConnect()
+func NewManagementPersistence(isProd ...bool) repository.ManagementRepository {
+	for i, v := range isProd {
+		if i == 0 && !v {
+			return &managementPersistence{
+				isProd: false,
+			}
+		} else {
+			break
+		}
+	}
+
+	return &managementPersistence{
+		isProd: true,
+	}
+}
+
+func (mp managementPersistence) GetManagementAll() []model.Management {
+	db := RDB.MySQLConnect(mp.isProd)
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM management;")
@@ -34,8 +48,8 @@ func (up managementPersistence) GetManagementAll() []model.Management {
 	return managements
 }
 
-func (up managementPersistence) GetManagement(user_id int) []model.Management {
-	db := RDB.MySQLConnect()
+func (mp managementPersistence) GetManagement(user_id int) []model.Management {
+	db := RDB.MySQLConnect(mp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("SELECT * FROM management WHERE user_id=?;")
@@ -60,8 +74,8 @@ func (up managementPersistence) GetManagement(user_id int) []model.Management {
 	return managements
 }
 
-func (up managementPersistence) RegisterManagement(m *model.RegisterManagementType) {
-	db := RDB.MySQLConnect()
+func (mp managementPersistence) RegisterManagement(m *model.RegisterManagementType) {
+	db := RDB.MySQLConnect(mp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("INSERT INTO management(user_id, sake_name, amount, date, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?);")
@@ -76,8 +90,8 @@ func (up managementPersistence) RegisterManagement(m *model.RegisterManagementTy
 	}
 }
 
-func (up managementPersistence) UpdateManagement(m *model.UpdateManagementType) {
-	db := RDB.MySQLConnect()
+func (mp managementPersistence) UpdateManagement(m *model.UpdateManagementType) {
+	db := RDB.MySQLConnect(mp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("UPDATE management SET amount=?, updated_at=? WHERE id=?;")
@@ -92,8 +106,8 @@ func (up managementPersistence) UpdateManagement(m *model.UpdateManagementType) 
 	}
 }
 
-func (up managementPersistence) DeleteManagement(management_id int) {
-	db := RDB.MySQLConnect()
+func (mp managementPersistence) DeleteManagement(management_id int) {
+	db := RDB.MySQLConnect(mp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("DELETE FROM management WHERE id=?")

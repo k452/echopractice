@@ -8,14 +8,28 @@ import (
 	"time"
 )
 
-type recipePersistence struct{}
-
-func NewRecipePersistence() repository.RecipeRepository {
-	return &recipePersistence{}
+type recipePersistence struct {
+	isProd bool
 }
 
-func (up recipePersistence) GetRecipeAll() []model.Recipe {
-	db := RDB.MySQLConnect()
+func NewRecipePersistence(isProd ...bool) repository.RecipeRepository {
+	for i, v := range isProd {
+		if i == 0 && !v {
+			return &recipePersistence{
+				isProd: false,
+			}
+		} else {
+			break
+		}
+	}
+
+	return &recipePersistence{
+		isProd: true,
+	}
+}
+
+func (rp recipePersistence) GetRecipeAll() []model.Recipe {
+	db := RDB.MySQLConnect(rp.isProd)
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM recipe;")
@@ -34,8 +48,8 @@ func (up recipePersistence) GetRecipeAll() []model.Recipe {
 	return recipes
 }
 
-func (up recipePersistence) GetRecipe(recipe_id int) []model.Recipe {
-	db := RDB.MySQLConnect()
+func (rp recipePersistence) GetRecipe(recipe_id int) []model.Recipe {
+	db := RDB.MySQLConnect(rp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("SELECT * FROM recipe WHERE id=?;")
@@ -59,8 +73,8 @@ func (up recipePersistence) GetRecipe(recipe_id int) []model.Recipe {
 	return recipes
 }
 
-func (up recipePersistence) RegisterRecipe(r *model.RegisterRecipeType) {
-	db := RDB.MySQLConnect()
+func (rp recipePersistence) RegisterRecipe(r *model.RegisterRecipeType) {
+	db := RDB.MySQLConnect(rp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("INSERT INTO recipe(user_id, title, text, sumbnail, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?);")
@@ -74,8 +88,8 @@ func (up recipePersistence) RegisterRecipe(r *model.RegisterRecipeType) {
 	}
 }
 
-func (up recipePersistence) UpdateRecipe(r *model.UpdateRecipeType) {
-	db := RDB.MySQLConnect()
+func (rp recipePersistence) UpdateRecipe(r *model.UpdateRecipeType) {
+	db := RDB.MySQLConnect(rp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("UPDATE recipe SET title=?, text=?, sumbnail=?, updated_at=? WHERE id=?;")
@@ -90,8 +104,8 @@ func (up recipePersistence) UpdateRecipe(r *model.UpdateRecipeType) {
 	}
 }
 
-func (up recipePersistence) DeleteRecipe(recipe_id int) {
-	db := RDB.MySQLConnect()
+func (rp recipePersistence) DeleteRecipe(recipe_id int) {
+	db := RDB.MySQLConnect(rp.isProd)
 	defer db.Close()
 
 	stmt, err := db.Prepare("DELETE FROM recipe WHERE id=?")

@@ -1,3 +1,8 @@
+CREATE DATABASE IF NOT EXISTS `testSakeDB`;
+GRANT ALL ON testSakeDB.* TO 'sakeUser'@'%';
+
+USE testSakeDB;
+
 CREATE TABLE IF NOT EXISTS user (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100),
@@ -44,8 +49,8 @@ CREATE TABLE IF NOT EXISTS token (
   FOREIGN KEY key_user_id(user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
-LOAD DATA INFILE "/docker-entrypoint-initdb.d/seedData/user.csv" INTO TABLE user FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`name`, `mail`, `level`, `pass`, `created_at`, `updated_at`);
+LOAD DATA INFILE "/docker-entrypoint-initdb.d/testData/user.csv" INTO TABLE user FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`name`, `mail`, `level`, `pass`, `created_at`, `updated_at`);
 
-LOAD DATA INFILE "/docker-entrypoint-initdb.d/seedData/management.csv" INTO TABLE management FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `sake_name`, `amount`, `date`, `created_at`, `updated_at`);
+LOAD DATA INFILE "/docker-entrypoint-initdb.d/testData/management.csv" INTO TABLE management FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `sake_name`, `amount`, `date`, `created_at`, `updated_at`);
 
-LOAD DATA INFILE "/docker-entrypoint-initdb.d/seedData/recipe.csv" INTO TABLE recipe FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `title`, `text`, `sumbnail`, `created_at`, `updated_at`);
+LOAD DATA INFILE "/docker-entrypoint-initdb.d/testData/recipe.csv" INTO TABLE recipe FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' (`user_id`, `title`, `text`, `sumbnail`, `created_at`, `updated_at`);
